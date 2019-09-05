@@ -1,5 +1,5 @@
 ### What, why?
-Have you ever wanted to build something with WebAssembly and Go, as a React dev but scratching your head in confusion on how to start? Well, I had the same problem. This is why I decided to write this.
+Have you ever wanted to build something with WebAssembly and Go, as a React dev but scratch your head in confusion on how to start? Well, I had the same problem. This was why I decided to write this.
 
 
 ### Whats it based on?
