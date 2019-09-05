@@ -23,6 +23,6 @@ func main() {
 func SayHello(jsV js.Value, inputs []js.Value) interface{} {
 	message := inputs[0].String()
 	h := js.Global().Get("document").Call("getElementById", "message")
-	h.Set("textContent", message+"\n"+"  ...💕 from WebAssembly and Golang")
+	h.Set("textContent", message)
 	return nil
 }

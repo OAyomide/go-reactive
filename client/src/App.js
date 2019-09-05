@@ -44,7 +44,7 @@ class App extends Component {
         </form>
         <br />
         <span id="message">
-          Ayomide Onigbinde wrote this!!😉
+          Ayomide Onigbinde wrote this!!😉...💕 from WebAssembly and Golang
         </span>
       </div>
     )
