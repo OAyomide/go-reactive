@@ -1,52 +1,51 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-let mod, inst;
-
 class App extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      message: '',
+      mod: null,
+      inst: null,
+    }
   }
 
   async componentDidMount() {
-    WebAssembly.instantiateStreaming(fetch("main.wasm"), window.go.importObject).then(
-      result => {
-        mod = result.module;
-        inst = result.instance;
-        document.getElementById("runButton").disabled = false;
-      }
-    );
+    let { instance, module } = await WebAssembly.instantiateStreaming(fetch("main.wasm"), window.go.importObject)
+    await window.go.run(instance)
+    // saving to state.. tsk tsk not sure its the most optimal but i guess it works?? also, the value isnt that "big" anyway
+    this.setState({
+      mod: module,
+      inst: instance
+    })
   }
 
-  handleClick = async () => {
-      await window.go.run(inst);
-      inst = await WebAssembly.instantiate(mod, window.go.importObject); // reset instance
+  handleChange = (e) => {
+    e.preventDefault();
+    this.setState({
+      message: e.target.value
+    })
   }
+
+  handleSubmit = async (e) => {
+    e.preventDefault()
+    window.sayHelloJS(this.state.message)
+  }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-        </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer" 
-          >
-            Learn React
-        </a>
-        </header>
-
-        <div>
-          <button onClick={(e) => this.handleClick()} id="runButton">Run</button>
-          <form>
-            <input type="text" name="" id="userInput" />
-          </form>
-        </div>
+        <form>
+          <input type="text" name="" id="userInput" onChange={(e) => this.handleChange(e)} style={{ marginTop: '100px' }} />
+          <br />
+          <button type="submit" onClick={(e) => this.handleSubmit(e)}>Click me to see MAGIC!!</button>
+        </form>
+        <br />
+        <span id="message">
+          Ayomide Onigbinde wrote this!!😉
+        </span>
       </div>
     )
   }
